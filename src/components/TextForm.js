@@ -32,8 +32,9 @@ export default function TextForm(props) {
     const handleCopy = () =>{
         // console.log("Copy Text  was clicked : ");
         let txt = document.getElementById("myBox");
-        txt.select();
+        // txt.select();
         navigator.clipboard.writeText(txt.value);
+        // document.getSelection().removeAllRanges();    // diSelect all the copied text in the textarea
         props.showAlert("Copied to Clipboard", "success");
     }
     
@@ -52,25 +53,25 @@ export default function TextForm(props) {
 
     return (
     <>
-    <div className='container' style={{color :  props.mode === 'dark' ? 'white' : 'black'}}>
-        <h1>{props.heading}</h1>
-        <div className="mb-3">
-        <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8" style={{ backgroundColor : props.mode === 'dark' ? 'grey' : 'white' ,
+    <div className='container mb-2' style={{color :  props.mode === 'dark' ? 'white' : 'black'}}>
+        <h2>{props.heading}</h2>
+        <div className="mb-4">
+        <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8" style={{ backgroundColor : props.mode === 'dark' ? '#13466e' : 'white' ,
                                                                                                                          color : props.mode === 'dark' ? 'white' : 'black'  }}>
          </textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>Covert to UpperCase</button>
-        <button className="btn btn-primary mx-2 " onClick={handleLoClick}>Covert to LowerCase</button>
-        <button className="btn btn-primary mx-2 " onClick={handleClearText}>Clear Text</button>
-        <button className="btn btn-primary mx-2 " onClick={handleCopy}>Copy Text</button>
-        <button className="btn btn-primary mx-2 " onClick={handleExtraSpaces}>Remove Extra Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Covert to UpperCase</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1 my-1 " onClick={handleClearText}>Clear Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1 my-1 " onClick={handleLoClick}>Covert to LowerCase</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1 my-1 " onClick={handleCopy}>Copy Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-1 my-1 " onClick={handleExtraSpaces}>Remove Extra Text</button>
     </div>
     <div className='container my-3' style={{color :  props.mode === 'dark' ? 'white' : 'black'}}>
         <h2>Your text Summary</h2>
-        <p> {text.trim().split(" ").length === 1 ? 0 : text.trim().split(" ").length } and {text.length} characters</p>
-        <p> {0.008 * (text.trim().split(" ").length === 1 ? 0 : text.trim().split(" ").length)} Minutes read</p>
+        <p> {text.trim().split(/\s+/).filter((element)=>{return element.length !== 0}).length  } word and {text.length} characters</p>
+        <p> {0.008 * (text.trim().split(" ").filter((element)=>{return element.length !== 0}).length    )} Minutes read</p>
         <h2>Preview</h2>
-        <p>{text.length > 0 ? text : 'Enter something in the textbox to preview it here... '}</p>
+        <p>{text.length > 0 ? text : 'Nothing to preview'}</p>
     </div>
     </>
   )

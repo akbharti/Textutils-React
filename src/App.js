@@ -3,11 +3,11 @@ import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import React, { useState } from 'react'
 import Alert from './components/Alert';
-// import About from './components/About';
-// import {
-//   Routes,
-//   Route
-// } from "react-router-dom";
+import About from './components/About';
+import {
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
   
@@ -25,7 +25,19 @@ function App() {
     },1500)
   }
 
-  const toggleMode = () => {
+  // const removeBodyClasses = ()  => {
+  //   document.body.classList.remove('bg-light');
+  //   document.body.classList.remove('bg-dark');
+  //   document.body.classList.remove('bg-success');
+  //   document.body.classList.remove('bg-danger');
+  //   document.body.classList.remove('bg-primary');
+  //   document.body.classList.remove('bg-warning');
+  // }
+
+  const toggleMode = (cls) => {
+    // removeBodyClasses();
+    // console.log(cls) 
+    // document.body.classList.add('bg-'+cls);
     if(mode === 'light'){
       setMode('dark');
       showAlert("Dark Mode Elabled", "success")
@@ -55,11 +67,11 @@ function App() {
     <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
     <Alert alert={alert}/>
     <div className="container my-3">
-      {/* <Routes>
-        <Route exact path="/" element={<TextForm heading='Enter the text to analyze below' mode={mode} showAlert={showAlert} />} />
-        <Route exact path="about" element={<About />} />
-      </Routes>  */}
-      <TextForm heading='Enter the text to analyze below' mode={mode} showAlert={showAlert} />
+      <Routes>
+        <Route exact path="/" element={<TextForm heading='Try Textutils - Word Counter, Character Counter, Removed Extra spaces ' mode={mode} showAlert={showAlert} />} />
+        <Route exact path="about" element={<About mode={mode}/>} />
+      </Routes> 
+      {/* <TextForm heading='Enter the text to analyze below' mode={mode} showAlert={showAlert} /> */}
       {/* <About /> */}
     </div>
    </>
