@@ -11,7 +11,7 @@ import {
 
 function App() {
   
-  const [mode, setMode]= useState('light'); // wheater dark mode is enable or not
+  const [mode, setMode]= useState('light'); // wheater dark mode is enable or not.
   const [alert, setAlert]= useState(null);
 
   const showAlert = (message , type) => {
